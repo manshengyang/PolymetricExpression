@@ -1,0 +1,168 @@
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="expression-builder.js"></script>
+		<script src="pe-parser.js"></script>
+		<script src="sound-object-builder.js"></script>
+		<script src="sound-object-parser.js"></script>
+		<script src="pe-player.js"></script>
+        <script type="text/javascript" src="sounds/lib/fft.js"></script>
+        <script type="text/javascript" src="sounds/lib/wavetable.js"></script>
+        <script src="sample-manager.js"></script>
+		<script src="demo.js"></script>
+		<script type="text/javascript">
+			$(function (){ 
+				var playButton = $("#play-button");
+				var onPlayClicked = function () {
+					if (playButton.html() === "Play") {
+						var expression = $("#exp-input").val();
+						if (expression === "") return;
+						playButton.html("Stop");
+						playExp(expression, function() {
+							playButton.html("Play");
+						});
+					} else {
+						stop();
+					}
+				};
+				$("#play-button").click(onPlayClicked);
+				var testCases = 
+				[
+				"tom3 snare",
+				"tom3 snare . tom3 snare . tom3 snare . tom3 snare",
+				"/2 tom3 snare . tom3 snare . tom3 snare . tom3 snare",
+				"/2 tom3 snare . tom3 snare snare snare . tom3 snare . tom3 snare snare snare",
+				"/2 {hihat snare . hihat snare snare snare . hihat snare . hihat snare snare snare, kick . kick}",
+				"/2 {hihat snare . hihat snare snare snare . hihat snare . hihat snare snare snare, kick kick kick  . - . kick kick kick . -}",
+				"/3 { org(10) { /2 org(7) org(8) } org(10)	{ /2 org(7) org(8) org(10) org(-2) org(0) org(2) org(3) org(5) org(7) org(8) } org(7) { /2 org(3) org(5) } org(7)	{ /2 org(-5) org(-4) org(-2) org(0) org(-2) org(-4) org(-2) org(3) org(2) org(3) } org(0) { /2 org(3) org(2) } org(0) { /2 org(-2) org(-4) org(-2) org(-4) org(-5) org(-4) org(-2) org(0) org(2) org(3)} org(0) {/2 org(3) org(2) } org(3)	{ /2 org(2) org(3) org(2) org(0) org(2) org(3) org(5) org(7) org(8) org(10) } } , { kick - kick - kick snare {/2 kick tom3 tom2 tom1}.snare kick hihat kick {/2 kick tom3 kick tom2 kick tom1 kick tom2 }.{/2 tom3 tom2 tom1 tom2 {/2 tom3 tom2 tom1 snare {/2 tom3 tom2 tom1 snare tom3 tom2 tom1 snare} } }.{/2 snare hihat snare hihat {/4 tom3 tom2 tom1 hihat tom3 tom2 tom1 snare} }{/4 tom1 tom1 tom2 tom3 }}",
+				"/2{- - - {/2 org(3) org(5)}.{/2 org(6) _ _ org(5)} org(6) org(10).org(5) _ _  org(-2).{/2 org(3) _ _ org(1)} org(3) org(6).org(1) _ _ org(-2).{/2 org(-1) _ _ org(-2)} org(-1) org(6). org(-2) _ _ org(6).{/2 org(5) _ _ org(-1) } org(0) org(5).org(5) _ _ {/2 org(3) org(5)}.{/2 org(6) _ _ org(5)} org(6) org(10).org(5) _ _  org(-2).{/2 org(3) _ _ org(1)} org(3) org(6).org(1) _ _ org(-2).org(-1) {/2 org(6) org(5)} org(5) org(6).org(8) {/2 org(10) org(6)} org(6) _.{/2 org(6) org(5) } org(3) org(5) org(2).org(3)}, /2 {- - - - . cel(-2) _ _ _ . cel(-2) _ _ _ . cel(-6) _ _ _ .cel(-4) _ _ _ . cel(-6) _ _ _ . - - - - . - - - - .- - - - . cel(-2) _ _ _ . cel(-2) _ _ _ . cel(-6) _ _ _ .cel(-4) _ _ _ . cel(-6) _ _ _ .cel(-21) cel(-14) cel(-9) _ . cel(-16) _ cel(-14) _ . cel(-21) cel(-14) cel(-9) _},/2 {- - - - . cel(-6) _ _ _ . cel(-7) _ _ _ . cel(-9) _ _ _ .cel(-6) _ _ _ . cel(-9) _ _ _ . cel(-9) _ _ _ . cel(-9) _ _ _ .- - - - . cel(-6) _ _ _ . cel(-7) _ _ _ . cel(-9) _ _ _ .cel(-6) _ _ _ . cel(-9) _ _ _ . - - - - . - - - - .- - - -},/2 {- - - - . cel(-9) _ _ _ . cel(-10) _ _ _ . cel(-12) _ _ _ .cel(-14) _ _ _ . cel(-16) _ _ _ . cel(-17) _ _ _ . cel(-19) _ _ _ .cel(-14) _ _ _ . cel(-9) _ _ _ . cel(-10) _ _ _ . cel(-12) _ _ _ .cel(-14) _ _ _ . cel(-16) _ _ _ . - - - - . - - - - .- - - -},{- . - . - . - . - . - . - . - . hihat hihat hihat hihat . hihat snare hihat snare . kick tom1 kick tom1 . {/2 hihat tom2 hihat tom2 } hihat tom2. {/2 hihat tom2 hihat tom2 } hihat tom2 . hihat tom3 {/2 hihat snare hihat snare} . hihat tom3 {/2 hihat snare hihat snare} .{/2 tom3 tom2 } tom1 tom2 tom1 . tom1 tom2 tom3 snare.}",
+				];
+				var testCaseExplain = 
+				[
+				"Test simple sound unit: ",
+				"Test period notation: ",
+				"Test tempo marker: ",
+				"Test time scheduling: ",
+				"Test comma notation: ",
+				"Test comma notation: ",
+				"Canon in D, by variations of pitches: ",
+				"The Castle in the Sky, by Miyazaki Hayao: ",
+				];
+				var playTest = function(e) {
+					$("#exp-input").val($(this).html());
+					if (playButton.html() === "Stop") {
+						onPlayClicked();
+					}
+					onPlayClicked();
+					e.preventDefault();
+				};
+				function addTestCase(testCase) {
+					var $link = $('<a href="#" class="test-link"></a>');
+					$link.html(testCase);
+					$link.click(playTest);
+					$link.css("text-decoration", "none");
+					$("#test-div").append($link);
+					$("#test-div").append("<br><br>");
+				};
+				for (var i = 0; i < 8; i++){
+					$("#test-div").append(testCaseExplain[i]);						
+					addTestCase(testCases[i]);								
+				}			
+			});
+		</script>
+		<style>
+			body, #exp-input, #play-button
+			{
+				font-size: 1.2em
+			}
+			select
+			{
+				width: 250px;
+			}
+			#sampleDiv td>div
+			{
+				margin: 0px 10px
+			}
+			.list-title
+			{
+				margin: 0
+			}
+			#msg
+			{
+				color: red;
+			}
+			#introduction{
+				font-size: 16px;
+				font-style: italic;
+			}
+			#title{
+				font-size: 32px;
+				margin: 0;
+			}
+			#settings input
+			{
+				width: 50px;
+				margin-right: 5px;
+			}
+		</style>
+	</head>
+	<body>	
+		<p id="title">
+		Polymetric Expressions (PE)
+		</p>
+		<p id="introduction">
+		A CS1010R javascript project by Yang Mansheng and Yang Zhixing, supervised by Associate Professor Martin Henz and Srikumar Karaikudi Subramaniam, in collaboration with Lee Zhi Xin and Rose Marie Tan who worked on the <a href="https://github.com/rosemarietan/GenerativeGrammar/">Generative Grammar</a> Project.
+		</p>
+		<p>
+		Instruction: A sound prototype is used as a single unit of music in the polymetric expression. A string of music expression is composed of the various prototypes. The prototype can either be continuous or non-continuous. Before you can use them in your composition, you must first add them to the prototype list.
+		</p>
+		<div id="sampleDiv">
+		Here are some prototypes to choose from:
+			<table>
+				<tr>
+					<td>
+						<div>
+							<p class="list-title">Sample List</p>
+							<select id="sample-list" size="10"></select>
+							<div>
+								<input type="text" id="sound-name" style="width:60px"/>
+								<input type="checkbox" id="is-continuous"/>continuous
+								<button id="add-sound">Add sound prototype</button>
+							</div>
+						</div>
+					</td>
+					<td>
+						<div>
+							<p class="list-title">Sound Prototype List</p>
+							<select id="sound-list" size="10"></select>
+							<div>
+								<button id="remove-sound">Remove sound prototype</button>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div style="margin-top: 15px">
+			Global Settings
+			<div id="settings">
+				gain: <input type="text" id="gain"/>
+				attack: <input type="text" id="attack"/>
+				decay: <input type="text" id="decay"/>
+				release: <input type="text" id="release"/>
+				sustain gain(relative): <input type="text" id="sustain-gain"/>
+				max gain(relative): <input type="text" id="max-gain"/>
+			</div>
+		</div>
+		<div style="margin-top: 15px">
+			Enter the expression here:
+			<br/>
+			<textarea id="exp-input" rows="10" cols="60" style="font-size: 14pt; font-family: monospace"></textarea>
+			<button id="play-button">Play</button>
+		</div>
+		<div id="msg"></div>
+		<div id="test-div">
+			<p><strong>Test cases:</strong> Please include the corresponding prototypes before you play them.</p>
+		</div>
+	</body>
+</html>
