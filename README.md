@@ -46,7 +46,7 @@ Using The Library
       		Call playerFacade.play with the expression you want to play
       	</li>
       	<li>
-      		(Optional) Call playerFacade.stop when you want to stop
+      		(Optional) Call playerFacade.stop when you want to
       	</li>
       </ol>
       The playerFacade class also exports other things like the player it uses to provide more detailed control. Look at the code for more information.
