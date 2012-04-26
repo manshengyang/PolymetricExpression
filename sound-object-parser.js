@@ -18,6 +18,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+/*
+ * Sound-Object-Parser class
+ *  The only function it exports is parse(struct-object).
+ *  The function returns a sound object, which can be used directly to play the sound.
+ * 
+ * SoundObject:
+ *  duration
+ *  playList: a list of sub sound objects contained by the sound object
+ *  source: AudioBufferSourceNode for audio object
+ *  endTime: the end time of the sound for audio object
+ *  play(time, controlParams): play the sound object at a specified time
+ *  stop(time): stop playing the sound object at a specified time
+ *  fit(duration): return a new sound object that is produced by fitting the sound object into a specified duration
+ *  repeat(durations): return a new sound object that repeats sound object according to the specified durations
+ */
 function soundObjectParser(builder) {
     
 	function mapGroup(group, mapSymbol){

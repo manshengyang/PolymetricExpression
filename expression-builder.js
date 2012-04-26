@@ -19,12 +19,17 @@
 // THE SOFTWARE.
 
 /*
-expression:
-	type: string, symbol/group/simul/sequence/repetition
-	content: depends on type
-	explicit: boolean, for group only, if it is a explicit group
-	position: object{line, column}, for symbol and repetition only,
-	tempo: number, for symbol only
+ * Expression-Builder class
+ *  An utility class used by pe-parser to build an expression tree.
+ *  The only function it exports is buildExpression(symbols).
+ *  The function returns an expression object.
+ * 
+ * expression object:
+ *  type: string, symbol/group/simul/sequence/repetition
+ *  content: depends on type
+ *  explicit: boolean, for group only, if it is a explicit group
+ *  position: object{line, column}, for symbol and repetition only
+ *  tempo: number, for symbol only
 */
 function expressionBuilder() {
 	

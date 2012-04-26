@@ -18,22 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-/*
-struct object:
-	type: string, symbol/group/simul/repetition
-	content: depends on type
-	duration: number, default value 1
-	fit(duration): method, adjust the duration,
-	explicit: boolean, for group only, if it is a explicit group
-	position: object{line, column}, for symbol and repetition only,
-	repeat: array of duration, for repetition only
-	
-symbol:
-	content: string
-	position: object{line, column}
-*/
-//use parsePE to parse a expression, it returns a struct object
-//sound object prototypes pattern [a-z].*
+/* 
+ * PE-Parser class
+ *  The only function it exports is parse(expression).
+ *  The function returns a struct object.
+ * 
+ * struct object:
+ *  type: string, symbol/group/simul/repetition
+ *  content: depends on type
+ *  duration: number, default value 1
+ *  fit(duration): method, adjust the duration
+ *  explicit: boolean, for group only, if it is a explicit group
+ *  position: object{line, column}, for symbol and repetition only
+ *  repeat: array of duration, for repetition only
+ */
 
 function peParser() { //constructor
 	

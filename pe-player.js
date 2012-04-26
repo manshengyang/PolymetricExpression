@@ -18,15 +18,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-/* A player for PE
- *  add prototypes before you play a PE
- *  - play(expression, unitTime, stopCallback)
+/* PE-Player class
+ *  add necessary prototypes before you play a polymetric expression
+ * 
+ *  - play(expression, controlParams, unitTime, stopCallback)
+ *      controlParams : control parameters, including gain and default ADSR paramters
  *      unitTime : the length of a unit of time used in the PE, in seconds
+ *      stopCallback : a function that is called when the play stops
+ *    play an expression
+ * 
  *  - stop()
- *  - addAudioPrototype(name, buffer, continuous?, ADSRParams)
- *    use this to add prototype that plays a audio buffer
+ *    stop playing the current expression
+ * 
+ *  - addAudioPrototype(name, buffer, continuous, ADSRParams, originalPlaybackRate)
+ *       continuous : indicates if the prototype is a continuous sound object
+ *       ADSRParams: ADSR parameters for continuous sound object
+ *    add a prototype that plays an audio buffer
+ * 
  *  - addPrototype(name, soundObject)
- *    use this to add prototype of your own design
+ *    add a prototype
  */
 
 function pePlayer(context) {
