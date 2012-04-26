@@ -18,20 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-/* SoundObject:
- *  duration
- *  play: play the sound object at a specified time
- *  stop: stop playing the sound object at a specified time
- *  fit: return a new sound object that is produced by fitting the sound object into a specified duration
- *  repeat: return a new sound object that repeats sound object according to the specified durations
- *  playList: a list of sub sound objects contained by the sound object
- *  source: AudioBufferSourceNode for audio object
- *  endTime: the end time of the sound for audio object
- *built-in sound object types:
- * pause
- * seq
- * simul
- * audio
+/*
+ * Sound-Object-Builder class
+ * An utility class used by sound-object-parser to create various sound object.
+ * 
+ * built-in sound object types:
+ *  pause
+ *  seq
+ *  simul
+ *  audio
  */
 function soundObjectBuilder(context) {
     

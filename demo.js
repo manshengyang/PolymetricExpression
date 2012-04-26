@@ -28,7 +28,7 @@ var soundList;
 var continuousCheck;
 var gainText;
 var attackText, decayText, releaseText, sustainGainText, maxGainText;
-var controlParams = {gain: 0.25, ADSRParams: {a: 0.1, d: 0.1, r: 0.2, maxAmp: 1.5, sustainAmp: 1}};
+var controlParams = {gain: 0.1, ADSRParams: {a: 0.1, d: 0.1, r: 0.2, maxAmp: 1.5, sustainAmp: 1}};
 
 function showMessage(msg) {
 	$("#msg").html(msg);
