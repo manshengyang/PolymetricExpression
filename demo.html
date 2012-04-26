@@ -29,22 +29,26 @@
 				var testCases = 
 				[
 				"tom3 snare",
-				"tom3 snare . tom3 snare . tom3 snare . tom3 snare",
+				"tom3 snare . tom3 snare snare . tom3 snare . tom3 snare snare",
 				"/2 tom3 snare . tom3 snare . tom3 snare . tom3 snare",
 				"/2 tom3 snare . tom3 snare snare snare . tom3 snare . tom3 snare snare snare",
 				"/2 {hihat snare . hihat snare snare snare . hihat snare . hihat snare snare snare, kick . kick}",
 				"/2 {hihat snare . hihat snare snare snare . hihat snare . hihat snare snare snare, kick kick kick  . - . kick kick kick . -}",
+				"sine _",
+				"sine(-1) sine(10) sine(20)",
 				"/3 { org(10) { /2 org(7) org(8) } org(10)	{ /2 org(7) org(8) org(10) org(-2) org(0) org(2) org(3) org(5) org(7) org(8) } org(7) { /2 org(3) org(5) } org(7)	{ /2 org(-5) org(-4) org(-2) org(0) org(-2) org(-4) org(-2) org(3) org(2) org(3) } org(0) { /2 org(3) org(2) } org(0) { /2 org(-2) org(-4) org(-2) org(-4) org(-5) org(-4) org(-2) org(0) org(2) org(3)} org(0) {/2 org(3) org(2) } org(3)	{ /2 org(2) org(3) org(2) org(0) org(2) org(3) org(5) org(7) org(8) org(10) } } , { kick - kick - kick snare {/2 kick tom3 tom2 tom1}.snare kick hihat kick {/2 kick tom3 kick tom2 kick tom1 kick tom2 }.{/2 tom3 tom2 tom1 tom2 {/2 tom3 tom2 tom1 snare {/2 tom3 tom2 tom1 snare tom3 tom2 tom1 snare} } }.{/2 snare hihat snare hihat {/4 tom3 tom2 tom1 hihat tom3 tom2 tom1 snare} }{/4 tom1 tom1 tom2 tom3 }}",
 				"/2{- - - {/2 org(3) org(5)}.{/2 org(6) _ _ org(5)} org(6) org(10).org(5) _ _  org(-2).{/2 org(3) _ _ org(1)} org(3) org(6).org(1) _ _ org(-2).{/2 org(-1) _ _ org(-2)} org(-1) org(6). org(-2) _ _ org(6).{/2 org(5) _ _ org(-1) } org(0) org(5).org(5) _ _ {/2 org(3) org(5)}.{/2 org(6) _ _ org(5)} org(6) org(10).org(5) _ _  org(-2).{/2 org(3) _ _ org(1)} org(3) org(6).org(1) _ _ org(-2).org(-1) {/2 org(6) org(5)} org(5) org(6).org(8) {/2 org(10) org(6)} org(6) _.{/2 org(6) org(5) } org(3) org(5) org(2).org(3)}, /2 {- - - - . cel(-2) _ _ _ . cel(-2) _ _ _ . cel(-6) _ _ _ .cel(-4) _ _ _ . cel(-6) _ _ _ . - - - - . - - - - .- - - - . cel(-2) _ _ _ . cel(-2) _ _ _ . cel(-6) _ _ _ .cel(-4) _ _ _ . cel(-6) _ _ _ .cel(-21) cel(-14) cel(-9) _ . cel(-16) _ cel(-14) _ . cel(-21) cel(-14) cel(-9) _},/2 {- - - - . cel(-6) _ _ _ . cel(-7) _ _ _ . cel(-9) _ _ _ .cel(-6) _ _ _ . cel(-9) _ _ _ . cel(-9) _ _ _ . cel(-9) _ _ _ .- - - - . cel(-6) _ _ _ . cel(-7) _ _ _ . cel(-9) _ _ _ .cel(-6) _ _ _ . cel(-9) _ _ _ . - - - - . - - - - .- - - -},/2 {- - - - . cel(-9) _ _ _ . cel(-10) _ _ _ . cel(-12) _ _ _ .cel(-14) _ _ _ . cel(-16) _ _ _ . cel(-17) _ _ _ . cel(-19) _ _ _ .cel(-14) _ _ _ . cel(-9) _ _ _ . cel(-10) _ _ _ . cel(-12) _ _ _ .cel(-14) _ _ _ . cel(-16) _ _ _ . - - - - . - - - - .- - - -},{- . - . - . - . - . - . - . - . hihat hihat hihat hihat . hihat snare hihat snare . kick tom1 kick tom1 . {/2 hihat tom2 hihat tom2 } hihat tom2. {/2 hihat tom2 hihat tom2 } hihat tom2 . hihat tom3 {/2 hihat snare hihat snare} . hihat tom3 {/2 hihat snare hihat snare} .{/2 tom3 tom2 } tom1 tom2 tom1 . tom1 tom2 tom3 snare.}",
 				];
 				var testCaseExplain = 
 				[
-				"Test simple sound unit: ",
-				"Test period notation: ",
-				"Test tempo marker: ",
-				"Test time scheduling: ",
-				"Test comma notation: ",
-				"Test comma notation: ",
+				"Simple sound unit: ",
+				"Period notation: ",
+				"Tempo marker: ",
+				"Time scheduling: ",
+				"Comma notation 1: ",
+				"Comma notation 2: ",
+				"Continuous sound with ADSR control: ",
+				"Pitch control: ",
 				"Canon in D, by variations of pitches: ",
 				"The Castle in the Sky, by Miyazaki Hayao: ",
 				];
@@ -64,7 +68,7 @@
 					$("#test-div").append($link);
 					$("#test-div").append("<br><br>");
 				};
-				for (var i = 0; i < 8; i++){
+				for (var i = 0; i < testCaseExplain.length; i++){
 					$("#test-div").append(testCaseExplain[i]);						
 					addTestCase(testCases[i]);								
 				}			
@@ -147,9 +151,9 @@
 			Global Settings
 			<div id="settings">
 				gain: <input type="text" id="gain"/>
-				attack: <input type="text" id="attack"/>
-				decay: <input type="text" id="decay"/>
-				release: <input type="text" id="release"/>
+				attack(secs): <input type="text" id="attack"/>
+				decay(secs): <input type="text" id="decay"/>
+				release(secs): <input type="text" id="release"/>
 				sustain gain(relative): <input type="text" id="sustain-gain"/>
 				max gain(relative): <input type="text" id="max-gain"/>
 			</div>
@@ -162,7 +166,7 @@
 		</div>
 		<div id="msg"></div>
 		<div id="test-div">
-			<p><strong>Test cases:</strong> Please include the corresponding prototypes before you play them.</p>
+			<p><strong>Test cases:</strong></p>
 		</div>
 	</body>
 </html>
