@@ -85,8 +85,8 @@ function soundObjectBuilder(context) {
         source.gain.linearRampToValueAtTime(sustainAmp, dEndTime);
         source.gain.setValueAtTime(sustainAmp, sEndTime);
         source.gain.linearRampToValueAtTime(0, rEndTime);
-        // console.log(time);
-        // console.log(rEndTime);
+        console.log(time);
+        console.log(rEndTime);
         source.noteOn(time);
         source.noteOff(rEndTime);
         this.source = source;
@@ -236,5 +236,8 @@ function soundObjectBuilder(context) {
     this.simul = simul;
     this.pause = pause;
     this.createAudioObject = createAudioObject;
+    this.updateContext = function(newContext) {
+        context = newContext;
+    }
 }
         
