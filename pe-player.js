@@ -105,4 +105,8 @@ function pePlayer(context) {
     this.addPrototype = addPrototype;
     this.addAudioPrototype = addAudioPrototype;
     this.removePrototype = removePrototype;
+    this.updateContext = function(newContext) {
+        context = newContext;
+        builder.updateContext(newContext);
+    }
 }

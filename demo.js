@@ -64,44 +64,11 @@ function init() {
 // around 40. If you give numbers like 1 or 2,
 // you'll get *very* low tones around 20Hz.
 //
-// TODO: Play around with the sounds below and
-// only select those which are interesting.
-// The "vowel" sounds can be quite funny and 
-// interesting in a musical context.
 var waveTables = {};
 function loadWaveTables(audioContext) {
     var names = {
-        /*"01_Saw" : "saw",
-        "02_Triangle" : "tri",
-        "03_Square" : "sq", 
-        "04_Noise" : "noise",
-        "05_Pulse" : "pulse",
-        "06_Warm_Saw" : "wsaw",
-        "07_Warm_Triangle" : "wtri",
-        "08_Warm_Square" : "wsq",
-        "09_Dropped_Saw" : "dsaw",
-        "10_Dropped_Square" : "dsq",
-        "Bass" : "bass",
-        "Bass_Fuzz" : "bfuzz",
-        "Brass" : "brass",
-        "Brit_Blues" : "brit",
-        "Buzzy_1" : "buzz", */
         "Celeste" : "cel",
-       /* "Chorus_Strings" : "chorus",
-        "Dissonant Piano" : "dpiano",
-        "Dissonant_1" : "diss",
-        "Guitar_Fuzz" : "guitar",
-        "Harsh" : "harsh", */
         "Organ_2" : "org",
-      /*  "Phoneme_ah" : "ah",
-        "Phoneme_bah" : "bah",
-        "Phoneme_ee" : "ee",
-        "Phoneme_o" : "o",
-        "Phoneme_ooh" : "ooh",
-        "Phoneme_pop_ahhhs" : "ahs",
-        "Piano" : "piano",
-        "Trombone" : "trom",
-        "Wurlitzer" : "wurl", */
     };
 
     var wave, table;
@@ -231,6 +198,10 @@ $(function() {
 function playExp(exp, stopCallback) {
 	showMessage("");
 	updateControlParams();
+	if (audioContext.currentTime > 500) {
+	    audioContext = new webkitAudioContext();
+	    player.updateContext(audioContext);
+	}
 	try {
        player.play(exp, controlParams, 1, stopCallback);
 	} catch(error) {
