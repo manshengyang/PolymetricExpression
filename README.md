@@ -23,8 +23,10 @@ Using The Library
 	<li>
       <p>The easiest way</p>
       <p>Files needed: pe-lib/*, sample-manager.js, player-facade.js</p>
-      player-facade.js provides an easy way to play polymetric expression, assuming you want to use sample-manager.js to load the samples.
-      <p>There are 4 steps:</p>
+      <p>
+      	player-facade.js provides an easy way to play polymetric expression, assuming you want to use sample-manager.js to load the samples.
+      	<br/>
+      	There are 4 steps:</p>
       <ol>
       	<li>
       		Create a playerFacade object
@@ -33,9 +35,8 @@ Using The Library
       		Call playerFacade.loadSamples to load the samples
       		<p>
       			The sampleUrl is the url of the folder the sample files located in. The folder should contains a mapping.js file. 
-         	</p>
-         	<p>
-         		Look at "acoustic-kit" folder for an example of the structure of such folders.
+         		<br/>
+         		Look at "acoustic-kit" folder for an example of the structure.
          	</p>
       	</li>
       	<li>
@@ -45,7 +46,7 @@ Using The Library
       		(Optional) Call playerFacade.stop when you want to stop
       	</li>
       </ol>
-      The playerFacade class also exports other things like the player it uses to provide more control if needed. Look at the code for more information.
+      The playerFacade class also exports other things like the player it uses to provide more detailed control. Look at the code for more information.
    </li>
    <li>
       <p>Need more control</p>
@@ -53,8 +54,7 @@ Using The Library
       
       <p>
       	If you need more control, you can use pe-player.js directly but this way is a bit more complicated. Look at pe-player.js for more information.
-      </p>
-      <p>
+      	<br/>
       	You can use demo.js as an example.
       </p>
    </li>
