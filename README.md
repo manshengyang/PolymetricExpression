@@ -19,24 +19,43 @@ http://bolprocessor.sourceforge.net/docs/bp2-Polymet.html
 
 Using The Library
 ====================
-1. The easiest way - use player-facade.js
-Files needed: pe-lib/*, sample-manager.js, player-facade.js
-
-player-facade.js provides an easy way to play polymetric expression, assuming you want to use sample-manager.js to load the samples.
-There are 3 steps:
-1. Create a playerFacade object
-2. Call playerFacade.loadSamples to load the samples
-   The sampleUrl is the url of the folder the sample files located in. The folder should contains a mapping.js file. 
-   Look at "acoustic-kit" folder for an example of the structure of such folders.
-3. Call playerFacade.play with the expression you want to play
-(Optional) 
-4. Call playerFacade.stop when you want to stop
-
-The playerFacade class also exports other things like the player it uses to provide more control if needed. Look at the code for more information.
-
-
-2. Need more control
-Files needed: pe-lib/*
-
-If you need more control, you can use pe-player.js directly but this way is a bit more complicated. Look at pe-player.js for more information.
-You can use demo.js as an example.
+<ol>
+	<li>
+      <p>The easiest way</p>
+      <p>Files needed: pe-lib/*, sample-manager.js, player-facade.js</p>
+      player-facade.js provides an easy way to play polymetric expression, assuming you want to use sample-manager.js to load the samples.
+      <p>There are 4 steps:</p>
+      <ol>
+      	<li>
+      		Create a playerFacade object
+      	</li>
+      	<li>
+      		Call playerFacade.loadSamples to load the samples
+      		<p>
+      			The sampleUrl is the url of the folder the sample files located in. The folder should contains a mapping.js file. 
+         	</p>
+         	<p>
+         		Look at "acoustic-kit" folder for an example of the structure of such folders.
+         	</p>
+      	</li>
+      	<li>
+      		Call playerFacade.play with the expression you want to play
+      	</li>
+      	<li>
+      		(Optional) Call playerFacade.stop when you want to stop
+      	</li>
+      </ol>
+      The playerFacade class also exports other things like the player it uses to provide more control if needed. Look at the code for more information.
+   </li>
+   <li>
+      <p>Need more control</p>
+      <p>Files needed: pe-lib/*</p>
+      
+      <p>
+      	If you need more control, you can use pe-player.js directly but this way is a bit more complicated. Look at pe-player.js for more information.
+      </p>
+      <p>
+      	You can use demo.js as an example.
+      </p>
+   </li>
+</ol>
