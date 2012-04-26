@@ -32,6 +32,9 @@ Using The Library
       		Create a playerFacade object
       	</li>
       	<li>
+      		(Optional) Set playerFacade.continuousPredicate to enable adding continuous sound object
+      	</li>
+      	<li>
       		Call playerFacade.loadSamples to load the samples
       		<p>
       			The sampleUrl is the url of the folder the sample files located in. The folder should contains a mapping.js file. 
