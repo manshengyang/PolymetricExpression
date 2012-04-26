@@ -85,7 +85,7 @@ function loadWaveTables(audioContext) {
         table.name = names[n];
         table.file = n;
         addWaveTablePrototype(table);
-    }   
+    }
 }
 
 var samples;

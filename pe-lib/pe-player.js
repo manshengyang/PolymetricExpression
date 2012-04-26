@@ -22,7 +22,8 @@
  *  add necessary prototypes before you play a polymetric expression
  * 
  *  - play(expression, controlParams, unitTime, stopCallback)
- *      controlParams : control parameters, including gain and default ADSR paramters
+ *      controlParams : control parameters, {gain, ADSRParams}
+
  *      unitTime : the length of a unit of time used in the PE, in seconds
  *      stopCallback : a function that is called when the play stops
  *    play an expression
