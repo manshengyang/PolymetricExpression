@@ -37,7 +37,7 @@ Using The Library
       	<li>
       		Call playerFacade.loadSamples to load the samples
       		<p>
-      			The sampleUrl is the url of the folder the sample files located in. The folder should contains a mapping.js file. 
+      			sampleUrl is the url of the folder the sample files located in. The folder should contains a mapping.js file. 
          		<br/>
          		Look at "acoustic-kit" folder for an example of the structure.
          	</p>
