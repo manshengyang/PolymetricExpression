@@ -7,7 +7,7 @@ Generative Grammar(https://github.com/rosemarietan/GenerativeGrammar/) Project.
 
 Project Home Page
 ====================
-http://fightangel.github.com/PolymetricExpression/
+http://lightyang.github.com/PolymetricExpression/
 
 
 Bol Processor BP2 Docs - Polymetric Expression
